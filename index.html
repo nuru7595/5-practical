@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICT Practical Khata</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f6f8; --card:#fff; --ink:#1e2430; --ink-soft:#5c6472; --line:#e2e6ec;
+  --primary:#2e5aa8; --primary-dark:#1f3f7a; --primary-soft:#e8effa;
+  --accent:#1e8f6a; --accent-soft:#e6f5ef; --shadow:0 1px 3px rgba(20,30,50,0.08);
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Hind Siliguri',sans-serif;line-height:1.75;-webkit-text-size-adjust:100%;padding-bottom:40px;}
+.wrap{max-width:760px;margin:0 auto;padding:0 12px;}
+header{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff;padding:22px 14px 18px;text-align:center;}
+header h1{margin:0 0 4px;font-size:21px;font-weight:700;}
+header p{margin:0;font-size:13px;opacity:.9;}
+.stickybar{position:sticky;top:0;z-index:10;background:var(--bg);padding:12px 0 8px;}
+.progresswrap{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:10px;box-shadow:var(--shadow);}
+.toprow{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-bottom:6px;}
+.toprow b{color:var(--primary);font-family:'JetBrains Mono',monospace;}
+.progressbar{height:8px;background:var(--line);border-radius:6px;overflow:hidden;}
+.fill{height:100%;background:linear-gradient(90deg,var(--accent),#27b58a);width:0%;transition:width .3s;}
+.linkbtn{background:none;border:none;color:var(--ink-soft);font-size:11.5px;text-decoration:underline;cursor:pointer;padding:0 0 0 10px;font-family:inherit;}
+.searchbox{width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid var(--line);font-size:14.5px;font-family:inherit;background:var(--card);margin-bottom:10px;}
+.searchbox:focus{outline:none;border-color:var(--primary);}
+.filterrow{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:4px;}
+.chip{background:var(--card);border:1.5px solid var(--line);color:var(--ink-soft);padding:6px 13px;border-radius:20px;font-size:12.5px;font-weight:600;cursor:pointer;transition:all .15s;}
+.chip.active{background:var(--primary);border-color:var(--primary);color:#fff;}
+#count-info{font-size:12px;color:var(--ink-soft);margin:6px 2px 2px;}
+.grouplabel{font-size:12.5px;color:var(--primary);font-weight:700;margin:18px 2px 6px;}
+
+.exp{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:8px;box-shadow:var(--shadow);overflow:hidden;}
+.exp.done{border-left:4px solid var(--accent);}
+.ehead{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;cursor:pointer;user-select:none;}
+.enum{flex:0 0 auto;background:var(--primary-soft);color:var(--primary-dark);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;border-radius:6px;padding:3px 7px;min-width:28px;text-align:center;}
+.exp.done .enum{background:var(--accent-soft);color:var(--accent);}
+.etitle{flex:1;font-size:14.5px;font-weight:600;}
+.earrow{color:var(--ink-soft);font-size:12px;transition:transform .2s;margin-top:3px;}
+.exp.open .earrow{transform:rotate(90deg);}
+.ebody{display:none;padding:4px 16px 16px;border-top:1px dashed var(--line);font-size:14px;color:#2c3340;}
+.exp.open .ebody{display:block;}
+.ebody h3{margin:16px 0 4px;font-size:13.5px;color:var(--primary-dark);border-bottom:1.5px solid var(--primary-soft);padding-bottom:2px;}
+.ebody ol,.ebody ul{margin:4px 0;padding-left:22px;}
+.ebody p{margin:4px 0;}
+.step{margin:10px 0 0;}
+.step b{display:block;color:var(--ink);font-size:14px;}
+.step span{color:#3a4252;}
+.tag{display:inline-block;font-size:10.5px;background:var(--accent-soft);color:var(--accent);border-radius:5px;padding:0 6px;margin-left:6px;font-weight:700;vertical-align:middle;}
+.note{background:#fff8e6;border:1px solid #f0dca0;border-radius:8px;padding:8px 10px;font-size:12.5px;margin-top:10px;}
+table.demo{border-collapse:collapse;margin:6px 0;font-size:13px;}
+table.demo td,table.demo th{border:1px solid var(--line);padding:3px 10px;text-align:center;}
+table.demo th{background:var(--primary-soft);}
+code{font-family:'JetBrains Mono',monospace;background:#eef1f5;padding:0 5px;border-radius:4px;font-size:12.5px;}
+.checkrow{display:flex;align-items:center;gap:6px;margin-top:14px;font-size:12.5px;color:var(--ink-soft);}
+.checkrow input{width:15px;height:15px;accent-color:var(--accent);cursor:pointer;}
+.empty{text-align:center;color:var(--ink-soft);padding:30px 10px;}
+@media print{
+  .stickybar,header{display:none;}
+  body{background:#fff;}
+  .exp{box-shadow:none;page-break-after:always;border:none;}
+  .ebody{display:block!important;}
+  .earrow,.checkrow{display:none;}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>ICT Practical Khata</h1>
+  <p>Information &amp; Communication Technology — ব্যবহারিক খাতা</p>
+</header>
+
+<div class="wrap">
+  <div class="stickybar">
+    <div class="progresswrap">
+      <div class="toprow">
+        <span>সম্পন্ন: <b id="progress-text">0/0</b></span>
+        <span><button class="linkbtn" onclick="resetProgress()">রিসেট</button></span>
+      </div>
+      <div class="progressbar"><div class="fill" id="progress-fill"></div></div>
+    </div>
+  </div>
+  <div id="list"></div>
+</div>
+
+<script>
+/* steps: [শিরোনাম, বিবরণ]  (বিবরণে HTML চলবে) */
+const exps = [
+{ n:1,
+  title:"ইন্টারনেট থেকে বাংলা টাইপিং সফটওয়্যার (অভ্র) ডাউনলোড ও ইনস্টল করা এবং বাংলায় টাইপ করা",
+  obj:["ইন্টারনেট ব্যবহার করে সফটওয়্যার ডাউনলোড করার পদ্ধতি শেখা।","অভ্র কীবোর্ড ইনস্টল করার ধাপগুলো সম্পর্কে ব্যবহারিক ধারণা অর্জন করা।","বাংলা ভাষায় টাইপ করার দক্ষতা অর্জন করা।"],
+  theory:"কম্পিউটারে বাংলা লিখতে হলে বাংলা কীবোর্ড সফটওয়্যার দরকার হয়। অভ্র কীবোর্ড একটি জনপ্রিয় ফোনেটিক বাংলা টাইপিং সফটওয়্যার, যেখানে ইংরেজি অক্ষরে উচ্চারণ অনুযায়ী লিখলে স্বয়ংক্রিয়ভাবে বাংলা লেখা তৈরি হয়। যেমন <code>ami</code> লিখলে আসে “আমি”। এটি বিনামূল্যে ডাউনলোড করা যায় এবং Word, Notepad, ব্রাউজারসহ সব জায়গায় কাজ করে।",
+  equip:["Desktop / Laptop Computer","Windows Operating System","ইন্টারনেট সংযোগ","Web Browser (Chrome / Edge)","Keyboard ও Mouse"],
+  steps:[
+   ["ব্রাউজার খোলা","কম্পিউটারে Chrome বা Edge ব্রাউজার চালু করতে হবে।"],
+   ["অভ্র সার্চ করা","সার্চ বক্সে <code>Avro Keyboard download</code> লিখে সার্চ দিতে হবে এবং অভ্র কীবোর্ডের অফিসিয়াল ওয়েবসাইটে ঢুকতে হবে।"],
+   ["ডাউনলোড করা","ওয়েবসাইটে Download বাটনে ক্লিক করে সেটআপ ফাইল (.exe) ডাউনলোড করতে হবে। ডাউনলোড শেষ হলে Downloads ফোল্ডারে ফাইলটি পাওয়া যাবে।"],
+   ["সেটআপ চালু করা","ডাউনলোড করা ফাইলে Double Click করতে হবে। User Account Control মেসেজ এলে Yes এ ক্লিক করতে হবে।"],
+   ["ইনস্টলেশন সম্পন্ন করা","Language নির্বাচন করে Next → License Agreement পড়ে Accept → ইনস্টল লোকেশন ঠিক রেখে Install বাটনে ক্লিক করতে হবে। শেষে Finish এ ক্লিক করতে হবে।"],
+   ["অভ্র চালু হয়েছে কিনা দেখা","ইনস্টল শেষ হলে স্ক্রিনের নিচে ডানদিকে (টাস্কবারে) অভ্র কীবোর্ডের আইকন দেখা যাবে।"],
+   ["বাংলা মোড চালু করা","Notepad বা MS Word খুলে অভ্র আইকনে ক্লিক করে বাংলা মোড নিতে হবে (সাধারণত <code>F12</code> বা <code>Ctrl + Space</code> দিয়ে বাংলা/ইংরেজি পরিবর্তন করা যায়)।"],
+   ["বাংলায় টাইপ করা","ফোনেটিক পদ্ধতিতে লিখতে হবে। যেমন: <code>ami</code> → আমি, <code>bangladesh</code> → বাংলাদেশ, <code>amar sonar bangla</code> → আমার সোনার বাংলা। কয়েক লাইন লিখে ফাইলটি Save করতে হবে।"]
+  ],
+  result:"উপরোক্ত ধাপগুলো অনুসরণ করে ইন্টারনেট থেকে অভ্র কীবোর্ড সফলভাবে ডাউনলোড ও ইনস্টল করা হয়েছে এবং বাংলায় টাইপ করা হয়েছে।",
+  concl:"এই প্র্যাকটিক্যালের মাধ্যমে আমি ইন্টারনেট থেকে সফটওয়্যার ডাউনলোড ও ইনস্টল করা এবং বাংলায় টাইপ করার ব্যবহারিক দক্ষতা অর্জন করেছি। ভবিষ্যতে বাংলা ডকুমেন্ট তৈরিতে এটি কাজে লাগবে।"
+},
+{ n:2,
+  title:"MS Word ব্যবহার করে বই ক্রয়ের জন্য একটি আবেদন তৈরি করা এবং টেবিল তৈরি করা",
+  obj:["MS Word এ আবেদনপত্র লেখার পদ্ধতি শেখা।","টেবিল তৈরি ও ফরম্যাটিং করার দক্ষতা অর্জন করা।","Line Spacing, Font, Alignment, Page Border, Watermark ও Print Preview ব্যবহার শেখা।"],
+  theory:"MS Word হলো Microsoft এর তৈরি একটি ওয়ার্ড প্রসেসর। এর মাধ্যমে আবেদন, চিঠি, রিপোর্ট ইত্যাদি তৈরি করা যায়। Table ফিচার ব্যবহার করে তথ্য সারি ও কলামে সাজানো যায়। ডকুমেন্টকে সুন্দর করতে Font, Alignment, Line Spacing, Page Border ও Watermark ব্যবহার করা হয়।",
+  equip:["Desktop / Laptop Computer","Windows Operating System","MS Word","Keyboard ও Mouse","বাংলা টাইপিং সফটওয়্যার (অভ্র)","Printer (প্রিন্ট করতে চাইলে)"],
+  steps:[
+   ["MS Word চালু করা","Start Menu থেকে MS Word খুলে Blank Document নিতে হবে।"],
+   ["আবেদন লেখা","অভ্র দিয়ে বাংলায় আবেদন লিখতে হবে। যেমন:<br>তারিখ: ..........<br>বরাবর, প্রধান শিক্ষক / অধ্যক্ষ মহোদয়, ........ কলেজ।<br>বিষয়: <i>পাঠ্যবই ক্রয়ের জন্য আবেদন।</i><br>জনাব, বিনীত নিবেদন এই যে, আমি আপনার কলেজের একজন শিক্ষার্থী। আমার পাঠ্যবই ক্রয়ের জন্য অর্থের প্রয়োজন। তাই নিম্নলিখিত বইগুলো ক্রয়ের অনুমতি ও সহায়তা প্রদানের জন্য আপনার মর্জি হয়।<br>বিনীত, ..........(নাম, রোল, শ্রেণি)।"],
+   ["টেবিল তৈরি করা","Insert ট্যাব → Table → প্রয়োজনমতো Rows ও Columns নির্বাচন করতে হবে। বইয়ের নাম ও সংখ্যা এভাবে লিখতে হবে:<table class='demo'><tr><th>ক্রমিক</th><th>বইয়ের নাম</th><th>সংখ্যা</th></tr><tr><td>১</td><td>বাংলা</td><td>২</td></tr><tr><td>২</td><td>ইংরেজি</td><td>৪</td></tr><tr><td>৩</td><td>গণিত</td><td>৬</td></tr></table>"],
+   ["Font ও Alignment ঠিক করা","লেখা সিলেক্ট করে Home ট্যাব থেকে Font Name ও Font Size ঠিক করতে হবে। বিষয় লাইন Bold ও Underline করতে হবে। শিরোনাম Center Alignment এবং আবেদনের মূল অংশ Justify করতে হবে।"],
+   ["Line Spacing দেওয়া","Home → Paragraph এর Line and Paragraph Spacing থেকে (যেমন 1.5) নির্বাচন করতে হবে।"],
+   ["Page Border দেওয়া","Design ট্যাব → Page Borders এ ক্লিক করে পছন্দমতো Border নির্বাচন করে OK দিতে হবে।"],
+   ["Watermark দেওয়া","Design ট্যাব → Watermark এ ক্লিক করে একটি Watermark (যেমন Confidential বা নিজের কলেজের নাম) নির্বাচন করতে হবে।"],
+   ["Print Preview দেখা ও সংরক্ষণ করা","File → Print এ গিয়ে ডকুমেন্টটি প্রিন্টের আগে দেখে নিতে হবে। এরপর File → Save As এ গিয়ে নাম দিয়ে Save করতে হবে।"]
+  ],
+  note:"খাতার মার্জিনে বক্সে কিছু লেখা ছিল যা ছবিতে ভালোভাবে পড়া যায়নি। (সম্ভবত টেবিল/ফরম্যাটিংয়ের কোন কমান্ড ব্যবহার করেছেন তা লিখতে হবে।) সেটা দেখে আপনার শিক্ষকের নির্দেশনা অনুযায়ী মিলিয়ে নেবেন।",
+  result:"উপরোক্ত ধাপগুলো অনুসরণ করে MS Word এর মাধ্যমে বই ক্রয়ের আবেদন ও টেবিল সফলভাবে তৈরি এবং ফরম্যাট করা হয়েছে।",
+  concl:"এই প্র্যাকটিক্যালের মাধ্যমে আমি MS Word এ আবেদনপত্র লেখা, টেবিল তৈরি, Font, Alignment, Line Spacing, Page Border, Watermark ও Print Preview ব্যবহারের দক্ষতা অর্জন করেছি।"
+},
+{ n:3,
+  title:"যেকোনো বিষয়ের উপর ৫টি বা ১০টি স্লাইডের একটি প্রেজেন্টেশন তৈরি করা (ছবি, Smart Art, Animation, Transition সহ)",
+  obj:["MS PowerPoint এ বহু-স্লাইডের প্রেজেন্টেশন তৈরি করা শেখা।","ছবি, Smart Art, Animation ও Transition ব্যবহারের পদ্ধতি জানা।","প্রেজেন্টেশন সংরক্ষণ ও উপস্থাপনের দক্ষতা অর্জন করা।"],
+  theory:"MS PowerPoint হলো Microsoft Office এর একটি প্রেজেন্টেশন সফটওয়্যার। এতে স্লাইডের মাধ্যমে লেখা, ছবি, চার্ট ও ভিডিও উপস্থাপন করা যায়। Smart Art দিয়ে ডায়াগ্রাম বানানো যায়, Animation দিয়ে স্লাইডের উপাদানে গতি আনা যায় এবং Transition দিয়ে এক স্লাইড থেকে অন্য স্লাইডে যাওয়ার সময় ভিজ্যুয়াল এফেক্ট দেওয়া যায়।",
+  equip:["Desktop / Laptop Computer","Windows Operating System","MS PowerPoint","Keyboard ও Mouse","প্রয়োজনীয় ছবি ও তথ্য"],
+  steps:[
+   ["বিষয় ঠিক করা","একটি বিষয় নির্বাচন করতে হবে (যেমন: “ডিজিটাল বাংলাদেশ”) এবং স্লাইডের তালিকা ঠিক করতে হবে: ১. শিরোনাম, ২. ভূমিকা, ৩. গুরুত্ব, ৪. সুবিধা, ৫. উপসংহার।"],
+   ["PowerPoint চালু করা","Start Menu থেকে PowerPoint খুলে Blank Presentation নিতে হবে।"],
+   ["শিরোনাম স্লাইড","প্রথম স্লাইডে Title ও Subtitle (নিজের নাম, রোল) লিখতে হবে।"],
+   ["নতুন স্লাইড যোগ করা","Home → New Slide এ ক্লিক করে প্রয়োজনমতো ৫টি বা ১০টি স্লাইড তৈরি করে প্রতিটিতে Bullet আকারে তথ্য লিখতে হবে।"],
+   ["ছবি যোগ করা","Insert → Pictures এ গিয়ে ছবি নির্বাচন করে স্লাইডে বসাতে হবে।"],
+   ["Smart Art যোগ করা","Insert → SmartArt এ গিয়ে একটি ডায়াগ্রাম (যেমন Process বা Hierarchy) নির্বাচন করে তথ্য লিখতে হবে।"],
+   ["Design ও Theme","Design ট্যাব থেকে একটি Theme নির্বাচন করতে হবে।"],
+   ["Animation দেওয়া","লেখা বা ছবি সিলেক্ট করে Animations ট্যাব থেকে একটি Animation (যেমন Fade, Fly In) দিতে হবে।"],
+   ["Transition দেওয়া","Transitions ট্যাব থেকে একটি Transition (যেমন Push, Fade) নির্বাচন করে প্রয়োজনে Apply To All দিতে হবে।"],
+   ["সংরক্ষণ ও পরীক্ষা","File → Save As এ গিয়ে ফোল্ডার ও নাম ঠিক করে Save করতে হবে। এরপর <code>F5</code> চেপে (Slide Show → From Beginning) পুরো প্রেজেন্টেশন চালিয়ে দেখতে হবে।"]
+  ],
+  result:"উপরোক্ত ধাপগুলো অনুসরণ করে ছবি, Smart Art, Animation ও Transition সহ একটি প্রেজেন্টেশন সফলভাবে তৈরি করা হয়েছে।",
+  concl:"এই প্র্যাকটিক্যালের মাধ্যমে আমি MS PowerPoint এ প্রেজেন্টেশন তৈরি, ছবি ও Smart Art ব্যবহার, Animation ও Transition প্রয়োগ এবং সংরক্ষণের ব্যবহারিক দক্ষতা অর্জন করেছি।"
+},
+{ n:4,
+  title:"Fiverr মার্কেটপ্লেসে একটি ফ্রিল্যান্সিং প্রোফাইল তৈরি করা",
+  obj:["Fiverr মার্কেটপ্লেস সম্পর্কে ধারণা অর্জন করা।","ফ্রিল্যান্সিং প্রোফাইল তৈরির পদ্ধতি শেখা।","নিজের দক্ষতা ও অভিজ্ঞতা ক্লায়েন্টের কাছে তুলে ধরার দক্ষতা অর্জন করা।"],
+  theory:"ফ্রিল্যান্সিং হলো একটি মুক্ত পেশা, যেখানে একজন ব্যক্তি স্থায়ী কর্মী না হয়ে নিজের দক্ষতা অনুযায়ী বিভিন্ন ক্লায়েন্টের জন্য কাজ করেন। Fiverr একটি জনপ্রিয় আন্তর্জাতিক ফ্রিল্যান্সিং মার্কেটপ্লেস, যেখানে ফ্রিল্যান্সাররা “Gig” আকারে নিজেদের সেবা বিক্রি করেন। ক্লায়েন্টরা প্রোফাইল দেখে ফ্রিল্যান্সারের যোগ্যতা যাচাই করেন, তাই প্রোফাইল তৈরি অত্যন্ত গুরুত্বপূর্ণ।",
+  equip:["Desktop / Laptop / Smartphone","ইন্টারনেট সংযোগ","Web Browser","ই-মেইল অ্যাকাউন্ট (Gmail)","মোবাইল নম্বর","প্রোফাইল ছবি ও নিজের দক্ষতার তথ্য"],
+  steps:[
+   ["Fiverr ওয়েবসাইটে প্রবেশ করা","ব্রাউজারে <code>www.fiverr.com</code> লিখে Fiverr এর ওয়েবসাইটে ঢুকতে হবে।"],
+   ["অ্যাকাউন্ট খোলা","Join বাটনে ক্লিক করে ই-মেইল বা Google অ্যাকাউন্ট দিয়ে সাইন আপ করতে হবে এবং একটি Username ও Password দিতে হবে।"],
+   ["ই-মেইল যাচাই করা","ই-মেইলে আসা Verification লিংকে ক্লিক করে অ্যাকাউন্ট ভেরিফাই করতে হবে।"],
+   ["Become a Seller নির্বাচন করা","Become a Seller অপশনে ক্লিক করে ফ্রিল্যান্সার হিসেবে প্রোফাইল তৈরি শুরু করতে হবে।"],
+   ["ব্যক্তিগত তথ্য দেওয়া","পূর্ণ নাম, প্রোফাইল ছবি, এবং নিজের সম্পর্কে ছোট পরিচিতি (Description) লিখতে হবে।"],
+   ["পেশাগত তথ্য দেওয়া","নিজের দক্ষতা (যেমন গ্রাফিক ডিজাইন, ডেটা এন্ট্রি, বাংলা টাইপিং), অভিজ্ঞতা ও ভাষাজ্ঞান যোগ করতে হবে।"],
+   ["পোর্টফোলিও যুক্ত করা","নিজের তৈরি কাজের নমুনা (যেমন ডিজাইন বা ডকুমেন্ট) পোর্টফোলিও হিসেবে যোগ করতে হবে।"],
+   ["পরিচয় যাচাই ও সংরক্ষণ","মোবাইল নম্বর ভেরিফাই করে প্রোফাইলটি Save/Publish করতে হবে। এরপর প্রোফাইল ঠিকঠাক দেখাচ্ছে কিনা পরীক্ষা করতে হবে।"]
+  ],
+  note:"পরীক্ষার জন্য আসল অ্যাকাউন্ট না খুলে কাজটি শিক্ষকের নির্দেশনামতো করবেন। ব্যক্তিগত তথ্য (পাসওয়ার্ড, OTP) কখনো খাতায় বা অন্য কাউকে লিখে দেবেন না।",
+  result:"উপরোক্ত ধাপগুলো অনুসরণ করে Fiverr এ একটি ফ্রিল্যান্সিং প্রোফাইল তৈরি করা হয়েছে।",
+  concl:"এই প্র্যাকটিক্যালের মাধ্যমে আমি Fiverr মার্কেটপ্লেসে প্রোফাইল তৈরির প্রক্রিয়া সম্পর্কে ব্যবহারিক ধারণা অর্জন করেছি। ভবিষ্যতে ফ্রিল্যান্সিংয়ে এটি কাজে লাগবে।"
+},
+{ n:5,
+  title:"MS Excel এ যোগ, বিয়োগ, গুণ ও ভাগ করা",
+  obj:["MS Excel এ সূত্র (Formula) ব্যবহারের পদ্ধতি শেখা।","যোগ, বিয়োগ, গুণ ও ভাগের হিসাব করার দক্ষতা অর্জন করা।","Cell Reference ও Fill Handle ব্যবহার শেখা।"],
+  theory:"MS Excel হলো একটি স্প্রেডশিট সফটওয়্যার, যেখানে হিসাব-নিকাশ, তথ্য সংরক্ষণ ও বিশ্লেষণ করা যায়। যেকোনো Formula সবসময় সমান চিহ্ন (<code>=</code>) দিয়ে শুরু করতে হয়। যোগের জন্য <code>+</code>, বিয়োগের জন্য <code>-</code>, গুণের জন্য <code>*</code> এবং ভাগের জন্য <code>/</code> চিহ্ন ব্যবহৃত হয়।",
+  equip:["Desktop / Laptop Computer","Windows Operating System","MS Excel","Keyboard ও Mouse"],
+  steps:[
+   ["MS Excel চালু করা","Start Menu থেকে Excel খুলে Blank Workbook নিতে হবে।"],
+   ["ডেটা লেখা","A1, B1 ইত্যাদি Cell এ হেডিং এবং নিচে সংখ্যা লিখতে হবে:<table class='demo'><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr><tr><td>1</td><td>সংখ্যা ১</td><td>সংখ্যা ২</td><td>যোগ</td><td>বিয়োগ</td><td>গুণ</td><td>ভাগ</td></tr><tr><td>2</td><td>20</td><td>5</td><td></td><td></td><td></td><td></td></tr><tr><td>3</td><td>50</td><td>10</td><td></td><td></td><td></td><td></td></tr></table>"],
+   ["যোগ করা","C2 Cell এ <code>=A2+B2</code> লিখে Enter দিতে হবে।"],
+   ["বিয়োগ করা","D2 Cell এ <code>=A2-B2</code> লিখে Enter দিতে হবে।"],
+   ["গুণ করা","E2 Cell এ <code>=A2*B2</code> লিখে Enter দিতে হবে।"],
+   ["ভাগ করা","F2 Cell এ <code>=A2/B2</code> লিখে Enter দিতে হবে।"],
+   ["সূত্র নিচে টানা","C2:F2 সিলেক্ট করে নিচের কোণার Fill Handle (ছোট বর্গ) টেনে অন্য সারিগুলোতে একই সূত্র প্রয়োগ করতে হবে।"],
+   ["সাজানো ও সংরক্ষণ","হেডিং Bold করে Cell এ Border দিতে হবে। এরপর File → Save As দিয়ে নাম দিয়ে Save করতে হবে।"]
+  ],
+  result:"উপরোক্ত ধাপগুলো অনুসরণ করে MS Excel এ যোগ, বিয়োগ, গুণ ও ভাগের হিসাব সফলভাবে সম্পন্ন করা হয়েছে। (যেমন ২০ ও ৫ এর জন্য: যোগফল ২৫, বিয়োগফল ১৫, গুণফল ১০০, ভাগফল ৪)",
+  concl:"এই প্র্যাকটিক্যালের মাধ্যমে আমি MS Excel এ Formula ব্যবহার করে মৌলিক গাণিতিক হিসাব করার ব্যবহারিক দক্ষতা অর্জন করেছি।"
+}
+];
+
+const STORAGE_KEY = "ict_practical_progress_v1";
+let openSet = new Set();
+
+function getP(){ try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{};}catch(e){return {};} }
+function setP(p){ try{localStorage.setItem(STORAGE_KEY,JSON.stringify(p));}catch(e){} }
+function toggleDone(n,c){
+  const p=getP(); if(c) p[n]=true; else delete p[n]; setP(p);
+  if(c) openSet.delete(n);
+  updateProgress(); renderList();
+  if(c) scrollToCard(n);
+}
+/* অন্য ওয়েবসাইটের ভেতরে ব্যবহার করলে পুরো পেজ নয়, শুধু নিকটতম স্ক্রলযোগ্য কন্টেইনার স্ক্রল হবে।
+   স্ক্রল একেবারে বন্ধ করতে AUTO_SCROLL = false করুন। */
+const AUTO_SCROLL = true;
+function scrollParentOf(el){
+  let n = el.parentElement;
+  while(n && n !== document.body && n !== document.documentElement){
+    const oy = getComputedStyle(n).overflowY;
+    if((oy==='auto' || oy==='scroll') && n.scrollHeight > n.clientHeight) return n;
+    n = n.parentElement;
+  }
+  return null;
+}
+function scrollToCard(n){
+  if(!AUTO_SCROLL) return;
+  const el=document.getElementById('exp-'+n); if(!el) return;
+  const bar=document.querySelector('.stickybar');
+  const off=(bar?bar.offsetHeight:0)+8;
+  const box=scrollParentOf(el);
+  if(box){
+    const d=el.getBoundingClientRect().top - box.getBoundingClientRect().top - off;
+    box.scrollBy({top:d,behavior:'smooth'});
+  }else{
+    window.scrollBy({top:el.getBoundingClientRect().top - off,behavior:'smooth'});
+  }
+}
+function resetProgress(){ if(confirm("সব অগ্রগতি মুছে ফেলতে চান?")){ setP({}); updateProgress(); renderList(); } }
+function updateProgress(){
+  const done=Object.keys(getP()).length, total=exps.length;
+  document.getElementById("progress-text").textContent=done+"/"+total;
+  document.getElementById("progress-fill").style.width=(total?done/total*100:0)+"%";
+}
+function bodyHTML(e,p){
+  let h="";
+  h+="<h3>উদ্দেশ্য (Objective)</h3><ol>"+e.obj.map(o=>"<li>"+o+"</li>").join("")+"</ol>";
+  h+="<h3>তত্ত্ব (Theory)</h3><p>"+e.theory+"</p>";
+  h+="<h3>প্রয়োজনীয় উপকরণ (Required Equipment)</h3><ul>"+e.equip.map(o=>"<li>"+o+"</li>").join("")+"</ul>";
+  h+="<h3>কার্যপ্রণালী (Procedure)</h3>";
+  e.steps.forEach((s,i)=>{ h+="<div class='step'><b>ধাপ "+toBn(i+1)+" : "+s[0]+"</b><span>"+s[1]+"</span></div>"; });
+  if(e.note) h+="<div class='note'>ℹ️ "+e.note+"</div>";
+  h+="<h3>ফলাফল (Result)</h3><p>"+e.result+"</p>";
+  h+="<h3>উপসংহার (Conclusion)</h3><p>"+e.concl+"</p>";
+  h+="<div class='checkrow'><input type='checkbox' id='chk-"+e.n+"' "+(p[e.n]?"checked":"")+"><label for='chk-"+e.n+"'>সম্পন্ন হিসেবে চিহ্নিত করুন</label></div>";
+  return h;
+}
+function toBn(n){ return String(n).replace(/\d/g,d=>"০১২৩৪৫৬৭৮৯"[d]); }
+
+function renderList(){
+  const p=getP(), list=document.getElementById("list"); list.innerHTML="";
+  exps.forEach(e=>{
+    const card=document.createElement("div");
+    card.className="exp"+(p[e.n]?" done":"")+(openSet.has(e.n)?" open":"");
+    card.id="exp-"+e.n;
+    const head=document.createElement("div"); head.className="ehead";
+    head.onclick=()=>{ const wasOpen=openSet.has(e.n); openSet.clear(); if(!wasOpen) openSet.add(e.n); renderList(); };
+    head.innerHTML="<div class='enum'>"+e.n+"</div><div class='etitle'>"+e.title+"</div><div class='earrow'>▶</div>";
+    card.appendChild(head);
+    const body=document.createElement("div"); body.className="ebody";
+    body.innerHTML=bodyHTML(e,p);
+    card.appendChild(body);
+    list.appendChild(card);
+    const chk=body.querySelector("input");
+    chk.onclick=ev=>{ ev.stopPropagation(); toggleDone(e.n,chk.checked); };
+  });
+}
+updateProgress(); renderList();
+</script>
+</body>
+</html>
