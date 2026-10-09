@@ -245,7 +245,7 @@ function renderList(){
     card.className="exp"+(p[e.n]?" done":"")+(openSet.has(e.n)?" open":"");
     card.id="exp-"+e.n;
     const head=document.createElement("div"); head.className="ehead";
-    head.onclick=()=>{ const wasOpen=openSet.has(e.n); openSet.clear(); if(!wasOpen) openSet.add(e.n); renderList(); };
+    head.onclick=()=>{ const wasOpen=openSet.has(e.n); openSet.clear(); if(!wasOpen) openSet.add(e.n); renderList(); if(!wasOpen) scrollToCard(e.n); };
     head.innerHTML="<div class='enum'>"+e.n+"</div><div class='etitle'>"+e.title+"</div><div class='earrow'>▶</div>";
     card.appendChild(head);
     const body=document.createElement("div"); body.className="ebody";
