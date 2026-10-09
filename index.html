@@ -19,7 +19,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Hind Siliguri',
 header{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff;padding:22px 14px 18px;text-align:center;}
 header h1{margin:0 0 4px;font-size:21px;font-weight:700;}
 header p{margin:0;font-size:13px;opacity:.9;}
-.stickybar{position:sticky;top:0;z-index:10;background:var(--bg);padding:12px 0 8px;}
+.stickybar{background:var(--bg);padding:12px 0 8px;}
 .progresswrap{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:10px;box-shadow:var(--shadow);}
 .toprow{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-bottom:6px;}
 .toprow b{color:var(--primary);font-family:'JetBrains Mono',monospace;}
@@ -51,7 +51,6 @@ header p{margin:0;font-size:13px;opacity:.9;}
 .step b{display:block;color:var(--ink);font-size:14px;}
 .step span{color:#3a4252;}
 .tag{display:inline-block;font-size:10.5px;background:var(--accent-soft);color:var(--accent);border-radius:5px;padding:0 6px;margin-left:6px;font-weight:700;vertical-align:middle;}
-.note{background:#fff8e6;border:1px solid #f0dca0;border-radius:8px;padding:8px 10px;font-size:12.5px;margin-top:10px;}
 table.demo{border-collapse:collapse;margin:6px 0;font-size:13px;}
 table.demo td,table.demo th{border:1px solid var(--line);padding:3px 10px;text-align:center;}
 table.demo th{background:var(--primary-soft);}
@@ -210,8 +209,7 @@ function scrollParentOf(el){
 function scrollToCard(n){
   if(!AUTO_SCROLL) return;
   const el=document.getElementById('exp-'+n); if(!el) return;
-  const bar=document.querySelector('.stickybar');
-  const off=(bar?bar.offsetHeight:0)+8;
+  const off=8;
   const box=scrollParentOf(el);
   if(box){
     const d=el.getBoundingClientRect().top - box.getBoundingClientRect().top - off;
@@ -233,7 +231,6 @@ function bodyHTML(e,p){
   h+="<h3>প্রয়োজনীয় উপকরণ (Required Equipment)</h3><ul>"+e.equip.map(o=>"<li>"+o+"</li>").join("")+"</ul>";
   h+="<h3>কার্যপ্রণালী (Procedure)</h3>";
   e.steps.forEach((s,i)=>{ h+="<div class='step'><b>ধাপ "+toBn(i+1)+" : "+s[0]+"</b><span>"+s[1]+"</span></div>"; });
-  if(e.note) h+="<div class='note'>ℹ️ "+e.note+"</div>";
   h+="<h3>ফলাফল (Result)</h3><p>"+e.result+"</p>";
   h+="<h3>উপসংহার (Conclusion)</h3><p>"+e.concl+"</p>";
   h+="<div class='checkrow'><input type='checkbox' id='chk-"+e.n+"' "+(p[e.n]?"checked":"")+"><label for='chk-"+e.n+"'>সম্পন্ন হিসেবে চিহ্নিত করুন</label></div>";
